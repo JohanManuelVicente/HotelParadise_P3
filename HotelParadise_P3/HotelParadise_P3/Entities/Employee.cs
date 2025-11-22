@@ -15,6 +15,4 @@ namespace HotelParadise_P3.Entities
         public string? Phone { get; set; }
 
         public DateTime Date_Admission { get; set; }
-    }
-
 }
