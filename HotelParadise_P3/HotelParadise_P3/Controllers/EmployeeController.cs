@@ -24,5 +24,21 @@ namespace HotelParadise_P3.Controllers
             var Employees = _context.Employees.ToList();
             return Ok(Employees);
         }
+
+
+        //metoo POST para crear y agregar un nuevo empleado en LA BD
+        [HttpPost]
+        public IActionResult PostEmployees([FromBody] Employee employee)
+        {
+            if (employee.Position == null)
+            {
+                return BadRequest($"Cargo no puede ser nulo");
+            }
+
+            employee.Date_Admission = DateTime.Now;
+            _context.Add(employee);
+            _context.SaveChanges();
+            return Ok(employee);
+        }
     }
 }
