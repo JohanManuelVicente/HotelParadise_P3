@@ -40,5 +40,30 @@ namespace HotelParadise_P3.Controllers
             _context.SaveChanges();
             return Ok(employee);
         }
+
+        [HttpPut("{id}")]
+        public IActionResult PutEmployees(int id, [FromBody] Employee employee)
+        {
+            if (employee.Position == null)
+            {
+                return BadRequest("Cargo es nulo o ID no coincide");
+            }
+
+            var existingEmployee = _context.Employees.FirstOrDefault(s => s.Id == employee.Id);
+            if (existingEmployee == null)
+            {
+                return NotFound($" Empleado con ID {employee.Id} no fue encontrado");
+            }
+
+           
+            existingEmployee.Name = employee.Name;
+            existingEmployee.Date_Admission = DateTime.Now;
+            existingEmployee.Position = employee.Position;
+            existingEmployee.Phone = employee.Phone;
+            _context.Employees.Update(existingEmployee);
+            _context.SaveChanges();
+            return Ok(existingEmployee);
+
+        }
     }
 }
