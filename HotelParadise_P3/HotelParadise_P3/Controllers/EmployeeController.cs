@@ -41,6 +41,8 @@ namespace HotelParadise_P3.Controllers
             return Ok(employee);
         }
 
+
+        //Metodo PUT para actualizar empelados ya existentes en la BD
         [HttpPut("{id}")]
         public IActionResult PutEmployees(int id, [FromBody] Employee employee)
         {
@@ -63,6 +65,23 @@ namespace HotelParadise_P3.Controllers
             _context.Employees.Update(existingEmployee);
             _context.SaveChanges();
             return Ok(existingEmployee);
+
+        }
+
+        //metodo DELETE para borarr enpleados en la BD
+        [HttpDelete("{id}")]
+
+        public IActionResult DeleteEmployees(int id)
+        {
+            var employee = _context.Employees.FirstOrDefault(p => p.Id == id);
+            if (employee == null)
+            {
+                return NotFound($"Empleado con ID: {id} no fue encontrado");
+            }
+
+            _context.Employees.Remove(employee);
+            _context.SaveChanges();
+            return NoContent();
 
         }
     }
