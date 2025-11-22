@@ -19,7 +19,7 @@ namespace HotelParadise_P3.Controllers
 
         //metodo GET para obtener todos los empleados de la BD
         [HttpGet]
-        public IActionResult GetEmployees()
+        public IActionResult GetAllEmployees()
         {
             var Employees = _context.Employees.ToList();
             return Ok(Employees);
